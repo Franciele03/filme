@@ -18,7 +18,7 @@ include "banner.php";
             die("deu ruim" . mysqli_connect_error());
         }
 
-        
+        echo "deu bom"
         ?>
 
         <div class="col-3">
