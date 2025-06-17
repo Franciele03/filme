@@ -7,26 +7,40 @@ include "banner.php";
  
     <div class="row mb-5">
         <?php
-        /*inicio de conexão com BD*/
+        /* inicio da conexão com BD */
         $servidor = 'localhost';
         $bd = 'bd_filmes';
         $usuario = 'root';
         $senha = '';
-
+ 
         $conexao = mysqli_connect($servidor, $usuario, $senha, $bd);
+ 
         if(!$conexao){
             die("deu ruim" . mysqli_connect_error());
         }
-
-        echo "deu bom"
-        ?>
-
+ 
+        /* Fim da conexão com o DB */
+ 
+        $sql = "select * from filmes";
+        $resultado = mysqli_query($conexao, $sql);
+       // echo "<pre>";
+       // print_r($resultado);
+        //echo "parou aqui";
+        //exit();
+        //echo "nem chegou aqui";
+        while($linha = mysqli_fetch_assoc($resultado)){
+          ?>
         <div class="col-3">
-            <img src="img/filme1.webp" class="img-fluid">
-            <h3>Jurassic Park</h3>
-            <span>⭐ 10/10</span>
+            <img src="<?=$linha['foto'];?>" class="img-fluid">
+            <h3><?=$linha['titulo'];?></h3>
+            <h3><?=$linha['categoria'];?></h3>
+            <h3 span>⭐ 10/</span><?=$linha['avaliacao'];?></h3>
         </div>
-        
+        <?php
+      }
+ 
+        ?>
+       
     </div>
  
     <div class="row mt-5">
@@ -49,86 +63,48 @@ include "banner.php";
           <img src="img/banner.jpg" class="img-fluid">
         </div>
     </div>
-
-
+ 
     <!-- Button trigger modal -->
-<button type="button" class="btn btn-warning bt-lg mt-5 fs-5 fw-bold text-bold" data-bs-toggle="modal" data-bs-target="#exampleModal">
-  Precisa de Ajuda? Clique aqui!
+<button type="button" class="btn btn-warning btn-lg mt-5 fs-5 fw-bold" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Precisa de ajuda? Clique aqui!
 </button>
-
+ 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Ajuda 📣</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Ajuda 💭</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <p>entrem em contato através dos nossos canais de comunicação</p>
-        <p>E-mail: suportefilmes@gmail.com <br> WhatsApp: (11)707052147 <br><a href="contato.php">Formulário</a></p>
-      </div>
-      
-    </div>
-  </div>
-</div>
-
-
-
-<!-- Modal de avaliação -->
-<div class="modal fade" id="avaliarFilmeModal" tabindex="-1" aria-labelledby="avaliarFilmeModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="avaliarFilmeModalLabel">Avalie um Filme 🎬</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-      </div>
-      <div class="modal-body">
-        <form action="avaliar.php" method="POST">
-          <div class="mb-3">
-            <label for="filme" class="form-label">Nome do Filme</label>
-            <input type="text" class="form-control" id="filme" name="filme" required>
-          </div>
-          <div class="mb-3">
-            <label for="nota" class="form-label">Nota (0 a 10)</label>
-            <input type="number" class="form-control" id="nota" name="nota" min="0" max="10" step="0.1" required>
-          </div>
-          <div class="mb-3">
-            <label for="comentario" class="form-label">Comentário</label>
-            <textarea class="form-control" id="comentario" name="comentario" rows="3" placeholder="Conte o que achou do filme..."></textarea>
-          </div>
-          <div class="modal-footer">
-            <button type="submit" class="btn btn-success">Enviar Avaliação</button>
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-          </div>
-        </form>
+         <p>entrem em contato Atraves dos nossos canais de comunicação</p>
+         <p>E-mail: suportefilmes@gmail.com <br> Whatsapp: (11)707052147 <br><a href="contato.php">Formulário de contato</a></p>
       </div>
     </div>
   </div>
 </div>
-
-<!-- Modal -->
-<div class="modal fade" id="meuModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Ajuda 📣</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <p>entrem em contato através dos nossos canais de comunicação</p>
-        <p>E-mail: suportefilmes@gmail.com <br> WhatsApp: (11)707052147 <br><a href="contato.php">Formulário</a></p>
-      </div>
-      
-    </div>
-  </div>
-</div>
-
-<!-- Botão para abrir o modal -->
-<button type="button" class="btn btn-warning bt-lg mt-5 fs-5 fw-bold text-bold" data-bs-toggle="modal" data-bs-target="#avaliarFilmeModal">
-  Quero avaliar um filme
+ 
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary btn-lg mt-5 fs-5 fw-bold" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+  Venha conhecer nosso site
 </button>
-
-
+ 
+<!-- Modal -->
+<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModal2Label" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModal2Label">Sobre o site 🎬</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+         <p>Descubra, explore e acompanhe os melhores filmes de todos os gêneros em um só lugar. No CineTime, você encontra sinopses, trailers, elenco, avaliações e todas as informações que precisa para escolher o próximo filme da sua lista. Dos clássicos do cinema às últimas estreias, nossa plataforma foi feita para apaixonados por filmes como você!</p>
+         <a href="listadenoticias.php">Formulario de Informações</a></p>
+      </div>
+    </div>
+  </div>
+</div>
 </div>
 <?php include "rodape.php"; ?>
+ 
